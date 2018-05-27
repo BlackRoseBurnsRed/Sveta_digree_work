@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+
+{% block create_schedule %}
+<article class="col-xs-12 maincontent">
+    <header class="page-header">
+        <h1 class="page-title">Расписание для специализированных аудиторий</h1>
+    </header>
+
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3 class="thin text-center">Расписание для класса {{ class_number }} "{{ class_liter }}"</h3>
+                <hr>
+
+                Расписание создано
+                <hr>
+
+                {% for day in schedule %}
+                    {% if day.day_index == 0 %}
+                        Понедельник
+                    {% elif day.day_index == 1 %}
+                        Вторник
+                    {% elif day.day_index == 2 %}
+                        Среда
+                    {% elif day.day_index == 3 %}
+                        Четверг
+                    {% elif day.day_index == 4 %}
+                        Пятница
+                    {% endif %}
+                    <table class="table schedule-table">
+                        <tbody>
+                            {% for lesson in day.lessons %}
+                                <tr>
+                                    <td>{{ lesson.lesson }}</td>
+                                    <td>{{ lesson.subject }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endfor %}
+
+                <hr>
+
+                <div class="col-md-3">
+                    <form action="/saveScheduele" method="post">
+                        <input type="submit" class="btn btn-action" type="submit" value="Сохранить">
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <form action="/editScheduele" method="post">
+                        <input type="submit" class="btn btn-action" type="submit" value="Редактировать">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</article>
+{% endblock %}

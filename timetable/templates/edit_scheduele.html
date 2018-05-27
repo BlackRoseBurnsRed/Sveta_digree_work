@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+
+{% block create_schedule %}
+<article class="col-xs-12 maincontent">
+    <header class="page-header">
+        <h1 class="page-title">Расписание для специализированных аудиторий</h1>
+    </header>
+
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3 class="thin text-center">Введите входные данные</h3>
+                <hr>
+
+                <form action="/saveScheduele" method="post">
+                    {% for day in schedule %}
+                    {% if day.day_index == 0 %}
+                        <h3>Понедельник</h3>
+                    {% elif day.day_index == 1 %}
+                        <h3>Вторник</h3>
+                    {% elif day.day_index == 2 %}
+                        <h3>Среда</h3>
+                    {% elif day.day_index == 3 %}
+                        <h3>Четверг</h3>
+                    {% elif day.day_index == 4 %}
+                        <h3>Пятница</h3>
+                    {% endif %}
+                        {% for lesson in day.lessons %}
+                            <div class="top-margin">
+                                <label>Номер предмета <span class="text-danger">*</span></label>
+                                <input type="text" value="{{ lesson.lesson }}" class="form-control" name="class_number" readonly>
+                            </div>
+                            <div class="top-margin">
+                                <label>Предмет <span class="text-danger">*</span></label>
+                                <input type="text" value="{{ lesson.subject }}" class="form-control" name="class_number">
+                            </div>
+                        {% endfor %}
+
+                        <hr>
+                    {% endfor %}
+
+                    <div class="row">
+                        <div class="col-lg-4 text-right">
+                            <input type="submit" class="btn btn-action" type="submit" value="Сохранить">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</article>
+{% endblock %}
